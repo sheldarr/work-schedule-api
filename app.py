@@ -17,6 +17,32 @@ def get_shifts():
         shifts = json.load(data_file)
         return jsonify(shifts)
 
+@app.route('/shift', methods=['POST'])
+def create_shift():
+    if not request.json:
+        abort(400)
+
+    with open('./data/shifts.json') as data_file:
+        data = json.load(data_file)
+        shifts = data['shifts']
+
+        shift = {
+            'id': max(shift['id'] for shift in shifts) + 1,
+            'name': request.json['name'],
+            'startHour': request.json['startHour'],
+            'startMinute': request.json['startMinute'],
+            'endHour': request.json['endHour'],
+            'endMinute': request.json['endMinute']
+        }
+
+        shifts.append(shift)
+
+        open('./data/shifts.json', 'w').write(
+            json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
+        )
+
+        return "OK", 200
+
 @app.route('/worker', methods=['GET'])
 def get_workers():
     with open('./data/workers.json') as data_file:
@@ -39,7 +65,7 @@ def create_worker():
         }
 
         workers.append(worker)
-        
+
         open('./data/workers.json', 'w').write(
             json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
         )
