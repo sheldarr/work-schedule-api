@@ -117,7 +117,7 @@ def link_shift(worker_id):
 
         shiftLink = {
             'dayOfYear': request.json['dayOfYear'],
-            'shiftId': request.json['shiftId']
+            'shiftId': int(request.json['shiftId'])
         }
 
         for i in range(len(workers)):
