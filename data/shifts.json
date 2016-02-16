@@ -1,0 +1,24 @@
+{
+    "shifts": [{
+        "id": 1,
+        "name": "I",
+        "startHour": 0,
+        "startMinute": 0,
+        "endHour": 8,
+        "endMinute": 0
+    }, {
+        "id": 2,
+        "name": "II",
+        "startHour": 8,
+        "startMinute": 0,
+        "endHour": 16,
+        "endMinute": 0
+    }, {
+        "id": 3,
+        "name": "III",
+        "startHour": 16,
+        "startMinute": 0,
+        "endHour": 23,
+        "endMinute": 59
+    }]
+}
