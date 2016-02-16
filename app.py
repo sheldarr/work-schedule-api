@@ -17,8 +17,8 @@ def getShifts():
 @app.route('/worker', methods=['GET'])
 def getWorkers():
     with open('./var/workers.json') as data_file:
-        shifts = json.load(data_file)
-        return jsonify(shifts)
+        workers = json.load(data_file)
+        return jsonify(workers)
 
 if __name__ == '__main__':
     app.run(debug=True)
