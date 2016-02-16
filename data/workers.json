@@ -13,10 +13,6 @@
                     "shiftId": 2
                 },
                 {
-                    "dayOfYear": 47,
-                    "shiftId": 3
-                },
-                {
                     "dayOfYear": 48,
                     "shiftId": 1
                 },
@@ -59,11 +55,6 @@
                     "shiftId": 3
                 }
             ]
-        },
-        {
-            "id": 3,
-            "name": "Test",
-            "schedule": []
         }
     ]
 }

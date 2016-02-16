@@ -54,8 +54,6 @@ def delete_shift(shift_id):
                 shifts.pop(i)
                 break
 
-        data['shifts'] = shifts
-
         open('./data/shifts.json', 'w').write(
             json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
         )
@@ -102,8 +100,6 @@ def delete_worker(worker_id):
                 workers.pop(i)
                 break
 
-        data['workers'] = workers
-
         open('./data/workers.json', 'w').write(
             json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
         )
@@ -128,6 +124,26 @@ def link_shift(worker_id):
             if workers[i]['id'] == worker_id:
                 workers[i]['schedule'].append(shiftLink)
                 break
+
+        open('./data/workers.json', 'w').write(
+            json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
+        )
+
+        return 'OK', 200
+
+@app.route('/worker/<int:worker_id>/shiftLink/<int:day_of_year>', methods=['DELETE'])
+def unlink_shift(worker_id, day_of_year):
+    with open('./data/workers.json') as data_file:
+        data = json.load(data_file)
+        workers = data['workers']
+
+        for i in range(len(workers)):
+            if workers[i]['id'] == worker_id:
+                for j in range(len(workers[i]['schedule'])):
+                    if workers[i]['schedule'][j]['dayOfYear'] == day_of_year:
+                        workers[i]['schedule'].pop(j)
+                        break
+            break
 
         open('./data/workers.json', 'w').write(
             json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
