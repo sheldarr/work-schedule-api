@@ -110,5 +110,30 @@ def delete_worker(worker_id):
 
         return 'OK', 200
 
+@app.route('/worker/<int:worker_id>/shiftLink', methods=['POST'])
+def link_shift(worker_id):
+    if not request.json:
+        abort(400)
+
+    with open('./data/workers.json') as data_file:
+        data = json.load(data_file)
+        workers = data['workers']
+
+        shiftLink = {
+            'dayOfYear': request.json['dayOfYear'],
+            'shiftId': request.json['shiftId']
+        }
+
+        for i in range(len(workers)):
+            if workers[i]['id'] == worker_id:
+                workers[i]['schedule'].append(shiftLink)
+                break
+
+        open('./data/workers.json', 'w').write(
+            json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
+        )
+
+        return 'OK', 200
+
 if __name__ == '__main__':
     app.run(debug=True)
