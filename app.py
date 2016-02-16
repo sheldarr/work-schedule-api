@@ -33,9 +33,12 @@ def delete_worker(worker_id):
             if workers[i]["id"] == worker_id:
                 workers.pop(i)
                 break
-        print(workers)
-        open("./data/workers_test.json", "w").write(
-            json.dumps(workers, sort_keys=True, indent=4, separators=(',', ': '))
+
+        data["workers"] = workers
+        print(data)
+
+        open("./data/workers.json", "w").write(
+            json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
         )
         return "OK"
 
